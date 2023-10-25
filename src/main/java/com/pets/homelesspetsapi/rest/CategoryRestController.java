@@ -1,7 +1,7 @@
 package com.pets.homelesspetsapi.rest;
 
-import com.pets.homelesspetsapi.dto.UserDTO;
-import com.pets.homelesspetsapi.service.UserService;
+import com.pets.homelesspetsapi.dto.CategoryDTO;
+import com.pets.homelesspetsapi.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,50 +19,48 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
-public class UserRestController {
+@RequestMapping("/api/categories")
+public class CategoryRestController {
 
-    private final UserService userService;
+    private final CategoryService categoryService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO save(@RequestBody UserDTO userDTO) {
+    public CategoryDTO save(@RequestBody CategoryDTO categoryDTO) {
 
-        return userService.save(userDTO);
+        return categoryService.save(categoryDTO);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> findAll() {
+    public List<CategoryDTO> findAll() {
 
-        return userService.findAll();
+        return categoryService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO findById(@PathVariable Long id) {
+    public CategoryDTO findById(@PathVariable Long id) {
 
-        return userService.findById(id);
+        return categoryService.findById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO update(@RequestBody UserDTO userDTO, @PathVariable Long id) {
+    public CategoryDTO update(@RequestBody CategoryDTO categoryDTO, @PathVariable Long id) {
 
-        return userService.update(userDTO, id);
+        return categoryService.update(categoryDTO, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public String delete(@PathVariable Long id) {
 
-        if (userService.findById(id) == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        if (categoryService.findById(id) == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
         } else {
-            userService.delete(id);
-            return "User deleted successfully";
+            categoryService.delete(id);
+            return "Category deleted successfully";
         }
     }
 }
-
-

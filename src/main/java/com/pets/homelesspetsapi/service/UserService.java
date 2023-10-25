@@ -1,5 +1,7 @@
 package com.pets.homelesspetsapi.service;
 
+import com.pets.homelesspetsapi.dto.UserDTO;
+import com.pets.homelesspetsapi.dto.mapper.UserMapper;
 import com.pets.homelesspetsapi.entity.User;
 import com.pets.homelesspetsapi.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -8,40 +10,52 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public User save(User user) {
+    @Transactional
+    public UserDTO save(UserDTO userDTO) {
 
-        return userRepository.save(user);
+        User user = userMapper.mapToUser(userDTO);
+        User savedUser = userRepository.save(user);
+
+        return userMapper.mapToUserDTO(savedUser);
     }
 
-    public User findById(Long id) {
+    public UserDTO findById(Long id) {
 
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("ID not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("ID not found"));
+
+        return userMapper.mapToUserDTO(user);
     }
 
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
 
-        return userRepository.findAll();
+        List<User> allUsers = userRepository.findAll();
+
+        return userMapper.mapToListUserDTO(allUsers);
     }
 
     @Transactional
-    public User update(User user, Long id) {
+    public UserDTO update(UserDTO userDTO, Long id) {
 
-        userRepository.findById(id).orElseThrow(() -> new RuntimeException("ID not found"));
-        user.setId(id);
-        return userRepository.save(user);
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("ID not found"));
+
+        userDTO.setId(id);
+        User updatedUser = userRepository.save(userMapper.mapToUser(userDTO));
+
+        return userMapper.mapToUserDTO(updatedUser);
     }
 
     public void delete(Long id) {
 
         userRepository.deleteById(id);
     }
-
 }
 

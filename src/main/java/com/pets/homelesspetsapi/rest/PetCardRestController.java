@@ -13,9 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+<<<<<<< HEAD
 
 import java.util.List;
 import java.util.UUID;
+=======
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+>>>>>>> c9facf68ab80df0023172476a8d4db98e3060df8
 
 @RestController
 @RequiredArgsConstructor
@@ -40,22 +46,45 @@ public class PetCardRestController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+<<<<<<< HEAD
     public PetCardDTO findById(@PathVariable UUID id) {
+=======
+    public PetCardDTO findById(@PathVariable Long id) {
+>>>>>>> c9facf68ab80df0023172476a8d4db98e3060df8
 
         return petCardService.findById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+<<<<<<< HEAD
     public PetCardDTO update(@RequestBody PetCardDTO petCardDTO, @PathVariable UUID id) {
+=======
+    public PetCardDTO update(@RequestBody PetCardDTO petCardDTO, @PathVariable Long id) {
+>>>>>>> c9facf68ab80df0023172476a8d4db98e3060df8
 
         return petCardService.update(petCardDTO, id);
     }
 
     @DeleteMapping("/{id}")
+<<<<<<< HEAD
     @ResponseStatus(value = HttpStatus.OK, reason = "PetCard deleted successfully")
     public void delete(@PathVariable UUID id) {
 
         petCardService.delete(id);
     }
 }
+=======
+    @ResponseStatus(HttpStatus.OK)
+    public String delete(@PathVariable Long id) {
+
+        if (petCardService.findById(id) == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "PetCard not found");
+        } else {
+            petCardService.delete(id);
+            return "PetCard deleted successfully";
+        }
+    }
+}
+
+>>>>>>> c9facf68ab80df0023172476a8d4db98e3060df8

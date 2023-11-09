@@ -1,7 +1,7 @@
 package com.pets.homelesspetsapi.rest;
 
-import com.pets.homelesspetsapi.dto.UserDTO;
-import com.pets.homelesspetsapi.service.UserService;
+import com.pets.homelesspetsapi.dto.PetCardDTO;
+import com.pets.homelesspetsapi.service.PetCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,50 +19,43 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
-public class UserRestController {
+@RequestMapping("/api/pet-cards")
+public class PetCardRestController {
 
-    private final UserService userService;
+    private final PetCardService petCardService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO save(@RequestBody UserDTO userDTO) {
+    public PetCardDTO save(@RequestBody PetCardDTO petCardDTO) {
 
-        return userService.save(userDTO);
+        return petCardService.save(petCardDTO);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> findAll() {
+    public List<PetCardDTO> findAll() {
 
-        return userService.findAll();
+        return petCardService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO findById(@PathVariable UUID id) {
+    public PetCardDTO findById(@PathVariable UUID id) {
 
-        return userService.findById(id);
+        return petCardService.findById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO update(@RequestBody UserDTO userDTO, @PathVariable UUID id) {
+    public PetCardDTO update(@RequestBody PetCardDTO petCardDTO, @PathVariable UUID id) {
 
-        return userService.update(userDTO, id);
+        return petCardService.update(petCardDTO, id);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK, reason = "User deleted successfully")
+    @ResponseStatus(value = HttpStatus.OK, reason = "PetCard deleted successfully")
     public void delete(@PathVariable UUID id) {
 
-        userService.delete(id);
-    }
-
-    @DeleteMapping("/all")
-    @ResponseStatus(value = HttpStatus.OK, reason = "Users deleted successfully")
-    public void delete() {
-
-        userService.deleteAll();
+        petCardService.delete(id);
     }
 }

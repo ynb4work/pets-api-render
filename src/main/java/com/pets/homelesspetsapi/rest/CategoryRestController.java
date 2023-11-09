@@ -1,7 +1,8 @@
 package com.pets.homelesspetsapi.rest;
 
-import com.pets.homelesspetsapi.dto.UserDTO;
-import com.pets.homelesspetsapi.service.UserService;
+import com.pets.homelesspetsapi.dto.CategoryDTO;
+import com.pets.homelesspetsapi.entity.Category;
+import com.pets.homelesspetsapi.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,56 +14,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
-public class UserRestController {
+@RequestMapping("/api/categories")
+public class CategoryRestController {
 
-    private final UserService userService;
+    private final CategoryService categoryService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO save(@RequestBody UserDTO userDTO) {
+    public CategoryDTO save(@RequestBody CategoryDTO categoryDTO) {
 
-        return userService.save(userDTO);
+        return categoryService.save(categoryDTO);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> findAll() {
+    public List<Category> findAll() {
 
-        return userService.findAll();
+        return categoryService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO findById(@PathVariable UUID id) {
+    public Category findById(@PathVariable UUID id) {
 
-        return userService.findById(id);
+        return categoryService.findById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO update(@RequestBody UserDTO userDTO, @PathVariable UUID id) {
+    public CategoryDTO update(@RequestBody CategoryDTO categoryDTO, @PathVariable UUID id) {
 
-        return userService.update(userDTO, id);
+        return categoryService.update(categoryDTO, id);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK, reason = "User deleted successfully")
+    @ResponseStatus(value = HttpStatus.OK, reason = "Category deleted successfully")
     public void delete(@PathVariable UUID id) {
 
-        userService.delete(id);
-    }
-
-    @DeleteMapping("/all")
-    @ResponseStatus(value = HttpStatus.OK, reason = "Users deleted successfully")
-    public void delete() {
-
-        userService.deleteAll();
+        categoryService.delete(id);
     }
 }

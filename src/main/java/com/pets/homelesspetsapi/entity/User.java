@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
@@ -26,9 +27,9 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
     @Column(name = "id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "name")
     private String name;
@@ -58,6 +59,5 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<PetCard> ownerPetCards;
-
 }
 

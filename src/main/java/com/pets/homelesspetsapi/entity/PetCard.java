@@ -16,19 +16,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(schema = "pet_clouder", name = "pet_card")
+@Table(schema = "pet_clouder_render", name = "pet_card")
 public class PetCard {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
     @Column(name = "id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "breed")
     private String breed;
@@ -59,6 +60,5 @@ public class PetCard {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-
 }
 

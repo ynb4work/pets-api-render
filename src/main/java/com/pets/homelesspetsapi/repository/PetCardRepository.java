@@ -1,9 +1,9 @@
 package com.pets.homelesspetsapi.repository;
 
-import com.pets.homelesspetsapi.entity.User;
+import com.pets.homelesspetsapi.entity.PetCard;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface PetCardRepository extends JpaRepository<PetCard, UUID> {
 }

@@ -14,19 +14,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(schema = "pet_clouder", name = "category")
+@Table(schema = "pet_clouder_render", name = "category")
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
     @Column(name = "id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "title")
     private String title;
@@ -37,7 +38,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<PetCard> petCardList;
-
 }
 
 

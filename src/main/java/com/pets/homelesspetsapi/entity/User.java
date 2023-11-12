@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(schema = "pet_clouder", name = "user")
+@Table(schema = "pet_clouder_render", name = "user")
 public class User {
 
     @Id
